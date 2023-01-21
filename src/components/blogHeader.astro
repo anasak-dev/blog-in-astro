@@ -1,0 +1,164 @@
+---
+export interface props {
+  title: string;
+  tags: string;
+  imageUrl?: string;
+  date: string;
+}
+import RenderBlogTitle from "./renderBlogTitle.astro";
+import { Image } from "@astrojs/image/components";
+const urlImg =
+  "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
+
+const { title, tags, imageUrl, date } = Astro.props;
+---
+
+<header>
+  <section
+    class="px-4 min-h-[100vh] border-b dark:border-white/20 border-black/10 flex justify-center items-center dark:bg-black bg-white"
+  >
+    <div
+      class="max-w-[1280px] columns-2 flex-wrap dark:text-white first-letter: items-center text-black w-full xl:justify-between justify-center py-16 mx-auto flex flex-row gap-6"
+    >
+      <div class="flex flex-col gap-6 md:basis-2/4 basis-full">
+        <h1
+          class="md:text-[72px] text-4xl flex flex-col justify-center md:justify-start items-center md:items-start font-bold leading-[1.2em]"
+        >
+          <RenderBlogTitle originalText={title} />
+        </h1>
+        <div class="meta flex md:flex-row flex-col gap-4 items-center">
+          <div class="flex items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-[25px]"
+              viewBox="0 0 24 24"
+              ><path
+                class="fill-black dark:fill-white"
+                d="M19,4H17V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V7A3,3,0,0,0,19,4Zm1,15a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12H20Zm0-9H4V7A1,1,0,0,1,5,6H7V7A1,1,0,0,0,9,7V6h6V7a1,1,0,0,0,2,0V6h2a1,1,0,0,1,1,1Z"
+              ></path></svg
+            >
+            <span class="date"> {date}</span>
+          </div>
+          <div class="tags flex gap-2 flex-wrap">
+            {
+              tags
+                .split(",")
+                .map((tag) => (
+                  <div class="py-2 px-4 bg-[#6776FF] text-white rounded-[4px]">
+                    {tag}
+                  </div>
+                ))
+            }
+          </div>
+        </div>
+      </div>
+      <Image
+        src={imageUrl}
+        class="rounded-lg rotate-12 origin-right blogThumbnail"
+        width={544}
+        aspectRatio={16 / 9}
+        alt="descriptive text"
+      />
+
+      <!-- 
+        <img src={imageUrl} class="rounded-lg max-w-[500px] w-full rotate-12 
+          origin-right blogThumbnail" alt="" /> -->
+    </div>
+  </section>
+</header>
+
+<script>
+  import { gsap } from "gsap";
+  import { CustomEase } from "gsap/CustomEase";
+  let i = 1;
+
+  gsap.registerPlugin(CustomEase);
+
+  const header = document.querySelector("header > section");
+  const body = document.querySelector("body");
+  const underline = gsap.utils.toArray("span.w-full");
+  const article = document.querySelector(".article");
+  const author = document.querySelector(".authorName");
+  const one = author.querySelector(".one");
+  const two = author.querySelector(".two");
+  const articleSection = document.querySelector(".articleContent");
+  const windowTop = {
+    top: 0,
+    height: 0,
+  };
+  author.addEventListener("mouseover", () => {
+    gsap.to(one, { y: -120 });
+    gsap.to(two, { y: 0 });
+  });
+  author.addEventListener("mouseout", () => {
+    gsap.to(one, { y: 0 });
+    gsap.to(two, { y: 120 });
+  });
+
+  const theme = document.querySelector(".theme");
+  theme.addEventListener("click", () => {
+    theme.classList.toggle("night");
+    body.classList.toggle("dark");
+  });
+  const thumbnail = document.querySelector(".blogThumbnail");
+  // console.log(underline)
+  const toRevealSections = gsap.utils.toArray(".reveal-up-trigger");
+  // gsap.to(article_,{opacity:1,onComplete:()=> {
+  initiateAnimation();
+  // }})
+  function initiateAnimation() {
+    toRevealSections.forEach((section, i) => {
+      const el = section.querySelector(".char");
+      const elSep = section.querySelector(".section-separator-sm");
+
+      gsap.to(thumbnail, { scale: 1, rotate: 0 });
+      gsap.to(el, {
+        y: 0,
+        rotate: 0,
+        delay: i * 0.1,
+        ease: "sine.inOut",
+        duration: 0.5,
+        onComplete: () => {
+          gsap.to(header, {
+            minHeight: "560px",
+            duration: 0.5,
+            delay: 0.5,
+
+            onComplete: () => {
+              gsap.to(article, { opacity: 1 });
+              gsap.to(article, { height: "100%" });
+              article.classList.add("flex");
+              article.classList.remove("hidden");
+              body.style.overflowY = "visible";
+              windowTop.top = articleSection.getBoundingClientRect().top;
+              windowTop.height = articleSection.getBoundingClientRect().height;
+            },
+          });
+        },
+      });
+      underline.forEach((item, i) => {
+        gsap.to(item, { scaleX: 1, duration: 1, delay: i * 0.1 });
+      });
+    });
+  }
+
+  const tracker = document.querySelector(".tracker");
+  document.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    if (scrollY >= windowTop.top) {
+      scrolLTracker();
+      tracker.classList.remove("hidden");
+    } else {
+      tracker.classList.add("hidden");
+    }
+  });
+  function scrolLTracker() {
+    let height =
+      document.querySelector(".articleContent").getBoundingClientRect().height +
+      document.querySelector(".articleContent").offsetTop -
+      document.documentElement.clientHeight;
+    let winScroll = document.documentElement.scrollTop;
+    let scrolled = (winScroll / height) * 100;
+    document.querySelector(".tracker").style.width = scrolled + "%";
+  }
+</script>

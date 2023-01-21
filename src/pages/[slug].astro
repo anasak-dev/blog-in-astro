@@ -1,0 +1,82 @@
+---
+import { contentfulClient } from "../lib/contentful";
+import type { BlogPost } from "../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<BlogPost>({
+    content_type: "blogPost",
+  });
+  let options = {
+    renderNode: {
+      [INLINES.HYPERLINK]: (node) => {
+        if (node.data.uri.includes("player.vimeo.com/video")) {
+          return `<iframe title="Unique Title 001" src=${node.data.uri} frameBorder="0" allowFullScreen></iframe>`;
+        } else if (node.data.uri.includes("youtube.com/embed")) {
+          return `<iframe title="Unique Title 002" src=${node.data.uri} 
+          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+          frameBorder="0" class="aspect-video w-full" width="960" allowFullScreen>
+          </iframe>`;
+        }
+      },
+      [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
+        // target the contentType of the EMBEDDED_ENTRY to display as you need
+        if (node.data.target.sys.contentType.sys.id === "codeBlock") {
+          return `<pre>
+            <code>${node.data.target.fields.code}</code>
+          </pre>`;
+        }
+
+        if (node.data.target.sys.contentType.sys.id === "videoEmbed") {
+          return `<iframe
+            src=${node.data.target.fields.embedUrl}
+            height="100%"
+            width="100%"
+            frameBorder="0"
+            scrolling="no"
+            title=${node.data.target.fields.title}
+            allowFullScreen={true}
+          />`;
+        }
+      },
+      [BLOCKS.EMBEDDED_ASSET]: (items) => {
+        return items.data.target.fields.file.url
+          ? `<img src=${items.data.target.fields.file.url}>`
+          : "";
+      },
+    },
+  };
+  const pages = entries.items.map((item: any) => ({
+    params: { slug: item.fields.slug },
+
+    props: {
+      title: item.fields.title,
+      blogContent: documentToHtmlString(item.fields.blogContent, options),
+      blogPostImage: item.fields.blogPostImage
+        ? item.fields.blogPostImage.fields.file.url
+        : "",
+      date: new Date(item.fields.date).toLocaleDateString(),
+      tags: item.fields.tags,
+    },
+  }));
+  return pages;
+}
+const { blogContent, title, blogPostImage, tags, date } = Astro.props;
+import BlogPostLayout from "../layouts/BlogPostLayout.astro";
+---
+
+<html lang="en">
+  <head>
+    <title>{title}</title>
+  </head>
+  <body>
+    <BlogPostLayout
+      title={title}
+      content={blogContent}
+      imgUrl={blogPostImage}
+      tags={tags}
+      date={date}
+    />
+  </body>
+</html>

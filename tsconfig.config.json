@@ -1,0 +1,5 @@
+{
+  "extends": "astro/tsconfigs/base"
+  "types": ["node","vite/client"]
+
+}
