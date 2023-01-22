@@ -1,7 +1,7 @@
 # build output
 dist/
 src/pages/posts
-
+public2/
 .output/
 #vs code
 .vscode
