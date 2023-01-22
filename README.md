@@ -1,50 +1,40 @@
-# Welcome to [Astro](https://astro.build)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/s/github/withastro/astro/tree/latest/examples/basics)
+# Create a Blog with Astro,Contentful & Vercel
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
+Simple statically generated blog site created with Astro with data coming from contentful and 
+hosted on vercel, all free!
 
 
-## 🚀 Project Structure
+![alt text](https://images.ctfassets.net/sod7x7wj2t2f/4FhMExpPtoegT51JzMSett/853fd4cb2dc7ae782704e89e9c3461ae/post-1-thumb.png)
+## Documentation
+```bash
+Fork or download the repo
 
-Inside of your Astro project, you'll see the following folders and files:
+npm install --> Initial
+npm run dev --> to view your changes locally
+npm run build --> your build will be output to folder public2
 
+To update links for the header, go to BlogPostLayout component
+inside src/components and update the data in BlogHeaderTop Component which is passed as a prop.
 ```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+[Documentation](https://linktodocumentation)
+
+
+## Deployment
+
+Astro has great documentation for the number of ways you can deploy the contentful based
+site on different platforms , I've used vercel personally, feel free to use something else.
+```bash
+  https://docs.astro.build/en/guides/cms/contentful/
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Demo
 
-Any static assets, like images, can be placed in the `public/` directory.
+https://anasak-dev.github.io/playing-with-rive/1-%20Juice%20interactive%20app/
 
-## 🧞 Commands
+## 🔗 Personal Links
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://anasniazi.com/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/anasniazi/)
+[![twitter](https://img.shields.io/badge/Dribbble-EA4C89?style=for-the-badge&logo=dribbble&logoColor=white)](https://dribbble.com/anasakdev)
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                | Action                                             |
-| :--------------------- | :------------------------------------------------- |
-| `npm install`          | Installs dependencies                              |
-| `npm run dev`          | Starts local dev server at `localhost:3000`        |
-| `npm run build`        | Build your production site to `./dist/`            |
-| `npm run preview`      | Preview your build locally, before deploying       |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro preview` |
-| `npm run astro --help` | Get help using the Astro CLI                       |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
