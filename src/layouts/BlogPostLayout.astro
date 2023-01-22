@@ -1,50 +1,69 @@
 ---
-import '../../public/index.css'
-import BlogHeader from '../components/blogHeader.astro';
-import BlogHeaderTop from '../components/blogHeaderTop.astro';
+import "../../public/index.css";
+import BlogHeader from "../components/blogHeader.astro";
+import BlogHeaderTop from "../components/blogHeaderTop.astro";
 export interface props {
-    title:string,
-    tags:string
-    imgUrl:string
-    date:string
-    content:Document
-} 
-const {title,imgUrl,content,tags,date} = Astro.props
+  title: string;
+  tags: string;
+  imgUrl: string;
+  date: string;
+  content: Document;
+  ogImg: string;
+  metaTitle: string;
+}
+const {
+  title,
+  imgUrl,
+  content,
+  tags,
+  date,
+  metaDescription,
+  ogImg,
+  metaTitle,
+} = Astro.props;
 ---
+
 <!DOCTYPE html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="">
-    <title>{title}</title>
-    <style>
-        body {
-            overflow-y: hidden;
-        }
-        span.w-full {
-            transform: translateY(1200px);
-            display:none
-        }
-       
-    </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {metaDescription ? <meta name="description" content={metaDescription} /> : ""}
+  {ogImg ? <meta property="og:image" content={ogImg} /> : ""}
+  <link
+    rel="shortcut icon"
+    type="image/x-icon"
+    href="../public/assets/images/favicon.ico"
+  />
+  <title>{metaTitle}</title>
+  <style>
+    body {
+      overflow-y: hidden;
+    }
+    span.w-full {
+      transform: translateY(1200px);
+      display: none;
+    }
+  </style>
 </head>
 <body class="dark">
-    <!-- ... -->
-  <BlogHeaderTop />
-    <BlogHeader  title={title}  imageUrl={imgUrl} tags={tags} date={date}/>
-    <section class="articleContent px-4 ">
-    <div class="py-10 max-w-[1280px]  article opacity-0 h-[0px]
-      hidden flex-col my-0  w-full mx-auto  dark:text-white text-black ">
-  <!-- <h2>Post author: {frontmatter.author}</h2>
-  <p>{frontmatter.description}<p> -->
-    <div class="py-10 ">
-        <article set:html={content} class="space-y-6 max-w-[960px] mx-auto"></article>
-
+  <BlogHeaderTop
+    authorName={"anasniazi"}
+    mainBlogLink={"#"}
+    portfolioLink="https://anasniazi.com"
+    dribbbleLink={"https://dribbble.com/anasakdev"}
+    githubLink={"https://github.com/anasak-dev"}
+    IgLink={"https://www.instagram.com/anasakniazi/"}
+  />
+  <BlogHeader title={title} imageUrl={imgUrl} tags={tags} date={date} />
+  <section class="articleContent px-4">
+    <div
+      class="py-10 max-w-[1280px] article opacity-0 h-[0px] hidden flex-col my-0 w-full mx-auto dark:text-white text-black"
+    >
+      <div class="py-10">
+        <article set:html={content} class="space-y-6 max-w-[960px] mx-auto" />
+      </div>
     </div>
-  
-</div>
-</section>
-<script src="../scripts/scroll.js" ></script>
+  </section>
+  <script src="../scripts/scroll.js"></script>
 </body>
-</html>

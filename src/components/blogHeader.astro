@@ -18,15 +18,17 @@ const { title, tags, imageUrl, date } = Astro.props;
     class="px-4 min-h-[100vh] border-b dark:border-white/20 border-black/10 flex justify-center items-center dark:bg-black bg-white"
   >
     <div
-      class="max-w-[1280px] columns-2 flex-wrap dark:text-white first-letter: items-center text-black w-full xl:justify-between justify-center py-16 mx-auto flex flex-row gap-6"
+      class="max-w-[1280px] columns-2 flex-wrap dark:text-white items-center text-black w-full justify-center py-16 mx-auto flex flex-row gap-6"
     >
-      <div class="flex flex-col gap-6 md:basis-2/4 basis-full">
+      <div class="flex flex-col gap-6 lg:basis-2/4 basis-full">
         <h1
-          class="md:text-[72px] text-4xl flex flex-col justify-center md:justify-start items-center md:items-start font-bold leading-[1.2em]"
+          class="md:text-[72px] text-4xl flex flex-col justify-center lg:justify-start items-center lg:items-start font-bold leading-[1.2em]"
         >
           <RenderBlogTitle originalText={title} />
         </h1>
-        <div class="meta flex md:flex-row flex-col gap-4 items-center">
+        <div
+          class="meta flex md:flex-row flex-col gap-4 items-center lg:justify-start justify-center"
+        >
           <div class="flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -70,12 +72,18 @@ const { title, tags, imageUrl, date } = Astro.props;
 <script>
   import { gsap } from "gsap";
   import { CustomEase } from "gsap/CustomEase";
-  let i = 1;
+  const body = document.querySelector("body");
 
+  const themePreference = localStorage.getItem("theme-preference");
+  if (themePreference == "light") {
+    body.classList.remove("dark");
+  } else {
+    body.classList.remove("light");
+  }
+  // body.classList.add(themePreference);
   gsap.registerPlugin(CustomEase);
 
   const header = document.querySelector("header > section");
-  const body = document.querySelector("body");
   const underline = gsap.utils.toArray("span.w-full");
   const article = document.querySelector(".article");
   const author = document.querySelector(".authorName");
@@ -99,7 +107,14 @@ const { title, tags, imageUrl, date } = Astro.props;
   theme.addEventListener("click", () => {
     theme.classList.toggle("night");
     body.classList.toggle("dark");
+
+    if (body.classList.contains("dark")) {
+      localStorage.setItem("theme-preference", "dark");
+    } else {
+      localStorage.setItem("theme-preference", "light");
+    }
   });
+
   const thumbnail = document.querySelector(".blogThumbnail");
   // console.log(underline)
   const toRevealSections = gsap.utils.toArray(".reveal-up-trigger");

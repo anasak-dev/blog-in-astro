@@ -56,27 +56,38 @@ export async function getStaticPaths() {
       blogPostImage: item.fields.blogPostImage
         ? item.fields.blogPostImage.fields.file.url
         : "",
+      ogImg: item.fields.ogImage ? item.fields.ogImage.fields.file.url : "",
       date: new Date(item.fields.date).toLocaleDateString(),
       tags: item.fields.tags,
+      metaDescription: item.fields.metaDescription,
+      metaTitle: item.fields.metaTitle,
     },
   }));
   return pages;
 }
-const { blogContent, title, blogPostImage, tags, date } = Astro.props;
+const {
+  blogContent,
+  title,
+  blogPostImage,
+  tags,
+  date,
+  metaDescription,
+  ogImg,
+  metaTitle,
+} = Astro.props;
 import BlogPostLayout from "../layouts/BlogPostLayout.astro";
 ---
 
-<html lang="en">
-  <head>
-    <title>{title}</title>
-  </head>
-  <body>
-    <BlogPostLayout
-      title={title}
-      content={blogContent}
-      imgUrl={blogPostImage}
-      tags={tags}
-      date={date}
-    />
-  </body>
-</html>
+<BlogPostLayout
+  title={title}
+  content={blogContent}
+  imgUrl={blogPostImage}
+  tags={tags}
+  ogImg={ogImg}
+  date={date}
+  metaTitle={metaTitle}
+  metaDescription={metaDescription}
+  igLink={"https://www.instagram.com/anasakniazi/"}
+  dribbbleLink={"https://dribbble.com/anasakdev"}
+  githubLink={"https://github.com/asdasd"}
+/>
