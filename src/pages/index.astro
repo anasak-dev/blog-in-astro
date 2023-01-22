@@ -1,0 +1,63 @@
+---
+import { contentfulClient } from "../lib/contentful";
+import type { BlogPost } from "../lib/contentful";
+import "../../public/index.css";
+const entries = await contentfulClient.getEntries<BlogPost>({
+  content_type: "blogPost",
+});
+
+const posts = entries.items.map((item) => {
+  const { slug } = item.fields;
+  return {
+    slug,
+  };
+});
+import AuthorName from "../components/authorName.astro";
+---
+
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Blog page which contains thoughts & resources from author, enjoy!"
+  />
+  <link
+    rel="shortcut icon"
+    type="image/x-icon"
+    href="../public/assets/images/favicon.ico"
+  />
+  <title>Anas Niazi | Blog</title>
+</head>
+
+<body>
+  <section class="px-4">
+    <div
+      class="max-w-[1280px] gap-10 flex-wrap dark:text-white text-black w-full py-16 mx-auto flex flex-col gap-6"
+    >
+      <h2 class="text-5xl">
+        <AuthorName />
+        <div class="font-medium inline"></div>/<div class="font-bold inline">
+          Blog
+        </div>
+      </h2>
+      <hr />
+      <ul class="space-y-5">
+        {
+          posts.map((post) => (
+            <li
+              class=" underline text-2xl w-fit hover:no-underline text-dark 
+            font-normal"
+            >
+              <a href={post.slug}>
+                <h2>{post.slug}</h2>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</body>

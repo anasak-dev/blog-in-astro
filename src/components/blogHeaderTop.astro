@@ -15,6 +15,7 @@ const {
   IgLink,
   mainBlogLink,
 } = Astro.props;
+import AuthorName from "./authorName.astro";
 ---
 
 <section
@@ -29,8 +30,8 @@ const {
   >
     <div class="authorName text-4xl font-medium overflow-hidden relative">
       <a href={portfolioLink}>
-        <div class="translate-y-0 one">{authorName}</div>
-        <div class="translate-y-10 absolute top-0 two">{authorName}</div>
+        <div class="translate-y-0 one"><AuthorName /></div>
+        <div class="translate-y-10 absolute top-0 two"><AuthorName /></div>
       </a>
     </div>
     <div class="social flex gap-4 items-center">
