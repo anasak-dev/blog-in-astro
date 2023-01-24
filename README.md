@@ -31,7 +31,7 @@ site on different platforms , I've used vercel personally, feel free to use some
 
 ## Demo
 
-https://anasak-dev.github.io/playing-with-rive/1-%20Juice%20interactive%20app/
+https://portfolio-in-astro-master-v2.vercel.app/Create-blog-with-contentful-and-astro
 
 ## 🔗 Personal Links
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://anasniazi.com/)
