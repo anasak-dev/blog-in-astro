@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   });
   let options = {
     renderNode: {
-      [INLINES.HYPERLINK]: (node,children) => {
+      [INLINES.HYPERLINK]: (node) => {
         if (node.data.uri.includes("player.vimeo.com/video")) {
           return `<iframe title="Unique Title 001" src=${node.data.uri} frameBorder="0" allowFullScreen></iframe>`;
         } else if (node.data.uri.includes("youtube.com/embed")) {
