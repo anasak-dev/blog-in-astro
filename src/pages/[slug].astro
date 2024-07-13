@@ -19,6 +19,11 @@ export async function getStaticPaths() {
           frameBorder="0" class="aspect-video w-full" width="960" allowFullScreen>
           </iframe>`;
         }
+        else{
+          return `<a  href=${node.data.uri} target="_blank" rel="nofollow">
+            ${node.data}
+          </a>`;
+        }
       },
       [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
         // target the contentType of the EMBEDDED_ENTRY to display as you need
