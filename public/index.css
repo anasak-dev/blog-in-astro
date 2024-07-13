@@ -71,6 +71,12 @@
   .article h4 {
     @apply text-[24px];
   }
+  .article a {
+    @apply border-y border-dashed text-[#fff];
+  }
+  .article a:hover {
+    @apply border-none;
+  }
   .article p {
     @apply text-[18px] leading-[1.4]  font-[300];
   }
