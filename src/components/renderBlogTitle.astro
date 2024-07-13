@@ -6,7 +6,7 @@ export interface props {
 const {originalText} = Astro.props
 const newText = originalText.split('_')
 ---
-{newText.map((item)=>             <div class="overflow-hidden reveal-up-trigger w-fit">
+{newText.map((item)=>             <div class="overflow-hidden w-fit">
 <div class="char  translate-y-20">{item}</div>
       <span
                 class="w-full scale-x-0  origin-left h-[1px] block dark:bg-white bg-black"
