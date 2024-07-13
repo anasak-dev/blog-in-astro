@@ -47,7 +47,7 @@ export async function getStaticPaths() {
       },
       [BLOCKS.EMBEDDED_ASSET]: (items) => {
         return items.data.target.fields.file.url
-          ? `<img src=${items.data.target.fields.file.url}>`
+          ? `<img src=${items.data.target.fields.file.url} loading="lazy">`
           : "";
       },
     },
