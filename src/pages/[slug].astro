@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   });
   let options = {
     renderNode: {
-      [INLINES.HYPERLINK]: (node) => {
+      [INLINES.HYPERLINK]: (node,children) => {
         if (node.data.uri.includes("player.vimeo.com/video")) {
           return `<iframe title="Unique Title 001" src=${node.data.uri} frameBorder="0" allowFullScreen></iframe>`;
         } else if (node.data.uri.includes("youtube.com/embed")) {
@@ -19,9 +19,9 @@ export async function getStaticPaths() {
           frameBorder="0" class="aspect-video w-full" width="960" allowFullScreen>
           </iframe>`;
         }
-        else{
+        else {
           return `<a  href=${node.data.uri} target="_blank" rel="nofollow">
-            ${node.data}
+            ${children}
           </a>`;
         }
       },
