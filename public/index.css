@@ -68,9 +68,11 @@
   .article h2:first-child {
     @apply pt-6;
   }
-
+  .article h4 {
+    @apply text-[24px];
+  }
   .article p {
-    @apply text-xs leading-loose;
+    @apply text-[18px] leading-[1.4]  font-[300];
   }
   .right_content .logo-container {
     @apply justify-start;
