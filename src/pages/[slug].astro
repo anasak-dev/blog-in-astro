@@ -20,7 +20,7 @@ export async function getStaticPaths() {
           </iframe>`;
         }
         else{
-          return `<a  href=${node.data.uri} target="_blank" aria-label=${next(node.content)}>
+          return `<a  href=${node.data.uri} target="_blank" aria-label="${next(node.content)}">
             ${next(node.content)}
           </a>`;
         }
