@@ -19,9 +19,9 @@ export async function getStaticPaths() {
           frameBorder="0" class="aspect-video w-full" width="960" allowFullScreen>
           </iframe>`;
         }
-        else {
+        else{
           return `<a  href=${node.data.uri} target="_blank" rel="nofollow">
-            ${children}
+            ${node.data.target.fields.title}
           </a>`;
         }
       },
