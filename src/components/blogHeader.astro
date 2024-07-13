@@ -118,44 +118,44 @@ const { title, tags, imageUrl, date } = Astro.props;
 
   const thumbnail = document.querySelector(".blogThumbnail");
   // console.log(underline)
-  const toRevealSections = gsap.utils.toArray(".reveal-up-trigger");
+  // const toRevealSections = gsap.utils.toArray(".reveal-up-trigger");
   // gsap.to(article_,{opacity:1,onComplete:()=> {
   initiateAnimation();
   // }})
   function initiateAnimation() {
-    toRevealSections.forEach((section, i) => {
-      const el = section.querySelector(".char");
-      const elSep = section.querySelector(".section-separator-sm");
-
-      gsap.to(thumbnail, { scale: 1, rotate: 0 });
-      gsap.to(el, {
-        y: 0,
-        rotate: 0,
-        delay: i * 0.1,
-        ease: "sine.inOut",
-        duration: 0.5,
-        onComplete: () => {
-          gsap.to(header, {
-            minHeight: "560px",
-            duration: 0.5,
-            delay: 0.5,
-
-            onComplete: () => {
-              gsap.to(article, { opacity: 1 });
-              gsap.to(article, { height: "100%" });
-              article.classList.add("flex");
-              article.classList.remove("hidden");
-              body.style.overflowY = "visible";
-              windowTop.top = articleSection.getBoundingClientRect().top;
-              windowTop.height = articleSection.getBoundingClientRect().height;
-            },
-          });
-        },
-      });
-      underline.forEach((item, i) => {
+    gsap.to(thumbnail, { scale: 1, rotate: 0 });
+    underline.forEach((item, i) => {
         gsap.to(item, { scaleX: 1, duration: 1, delay: i * 0.1 });
       });
-    });
+    // toRevealSections.forEach((section, i) => {
+    //   const el = section.querySelector(".char");
+    //   const elSep = section.querySelector(".section-separator-sm");
+    //   gsap.to(el, {
+    //     y: 0,
+    //     rotate: 0,
+    //     delay: i * 0.1,
+    //     ease: "sine.inOut",
+    //     duration: 0.5,
+    //     onComplete: () => {
+    //       gsap.to(header, {
+    //         minHeight: "560px",
+    //         duration: 0.5,
+    //         delay: 0.5,
+
+    //         onComplete: () => {
+    //           gsap.to(article, { opacity: 1 });
+    //           gsap.to(article, { height: "100%" });
+    //           article.classList.add("flex");
+    //           article.classList.remove("hidden");
+    //           body.style.overflowY = "visible";
+    //           windowTop.top = articleSection.getBoundingClientRect().top;
+    //           windowTop.height = articleSection.getBoundingClientRect().height;
+    //         },
+    //       });
+    //     },
+    //   });
+   
+    // });
   }
 
   const tracker = document.querySelector(".tracker");
