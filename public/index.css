@@ -72,7 +72,7 @@
     @apply text-[24px];
   }
   .article a {
-    @apply border-y border-dashed text-[#fff];
+    @apply border-b border-dashed text-[#fff];
   }
   .article a:hover {
     @apply border-none;
